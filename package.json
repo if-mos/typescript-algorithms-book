@@ -1,7 +1,7 @@
 {
-  "name": "typescript-library-starter",
-  "version": "0.0.0",
-  "description": "",
+  "name": "@if-mos/typescript-algorithms-book",
+  "version": "0.1.0",
+  "description": "Algorithms implementations with TypeScript",
   "keywords": [],
   "main": "dist/typescript-library-starter.umd.js",
   "module": "dist/typescript-library-starter.es5.js",
@@ -9,30 +9,31 @@
   "files": [
     "dist"
   ],
-  "author": "moswen <moswen@meijiabang.cn>",
+  "author": "mos <acwzy@live.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/if-mos/typescript-algorithms-book.git"
   },
-  "license": "MIT",
+  "license": "GPL-3.0",
   "engines": {
     "node": ">=6.0.0"
   },
   "scripts": {
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme markdown --mode file src",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
+    "deploy-wikis": "ts-node tools/wikis-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "prepublish": "npm run build && npm run deploy-docs"
+    "gitbook": "npm run build && gitbook build npm run deploy-docs"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -49,7 +50,7 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
@@ -116,5 +117,14 @@
     "typedoc": "^0.12.0",
     "typedoc-plugin-markdown": "^1.1.19",
     "typescript": "^3.0.3"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/if-mos/typescript-algorithms-book/issues"
+  },
+  "homepage": "https://github.com/if-mos/typescript-algorithms-book#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {}
 }
