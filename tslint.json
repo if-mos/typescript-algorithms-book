@@ -1,6 +1,29 @@
 {
   "extends": [
+    "tslint:latest",
     "tslint-config-standard",
     "tslint-config-prettier"
-  ]
+  ],
+  "rules": {
+    "max-classes-per-file": false,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "singleline": "never",
+        "multiline": "always"
+      }
+    ],
+    "member-access": false
+  },
+  "linterOptions": {
+    "exclude": ["./tools"]
+  }
 }
