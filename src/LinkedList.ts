@@ -1,20 +1,11 @@
 class LinkedListNode<T> {
-  constructor(public element: T, public next: LinkedListNode<T> | null = null) {}
+  public next: LinkedListNode<T> | null = null
+
+  constructor(public element: T) {
+  }
 }
 
 export interface ILinkedList<T> {
-  insert(position: number, element: T): void
-
-  remove(element: T): boolean
-
-  indexOf(element: T): number
-
-  isEmpty(): boolean
-
-  size(): number
-
-  getHead(): LinkedListNode<T> | null
-
   toString(): string
 }
 
@@ -55,7 +46,7 @@ export class LinkedList<T> {
     if (current.next === null || position === 0) {
       this.head = current.next
     } else {
-      while (current.next !== null && index++ < position) {
+      while (current.next && index++ < position) {
         previous = current
         current = current.next
       }
@@ -64,5 +55,93 @@ export class LinkedList<T> {
     this.length--
 
     return current.element
+  }
+
+  remove(element: T): boolean {
+    if (this.head === null) {
+      return false
+    }
+
+    let current: LinkedListNode<T> | null = this.head
+
+    let previous = null
+
+    while (current) {
+      if (current.element === element) {
+        if (previous === null) {
+          this.head = current
+        } else {
+          previous.next = current.next
+        }
+        this.length--
+        return true
+
+      }
+      previous = current
+      current = current.next
+    }
+
+    return false
+  }
+
+  insert(position: number, element: T): boolean {
+
+    if (position < 0 || position > this.length || this.head === null) {
+      return false
+    } else {
+      const node = new LinkedListNode(element)
+      if (position === 0) {
+        node.next = this.head
+        this.head = node
+        this.length++
+        return true
+      } else {
+        let index = 0
+        let current: LinkedListNode<T> | null = this.head
+        let previous = current
+        while (index++ < position && current) {
+
+          previous = current
+          current = current.next
+        }
+        node.next = current
+        previous.next = node
+        this.length++
+        return true
+      }
+    }
+  }
+
+  isEmpty(): boolean {
+    return this.length === 0
+  }
+
+  size(): number {
+    return this.length
+  }
+
+
+  getHead(): LinkedListNode<T> | null {
+    return this.head
+  }
+
+  indexOf(element: T): number {
+    let position: number = -1
+
+    if (this.head === null) {
+      return position
+    }
+    let current: LinkedListNode<T> | null = this.head
+
+    while (current) {
+      position++
+      if (current.element === element) {
+        return position
+      }
+
+      current = current.next
+    }
+
+    return -1
   }
 }
